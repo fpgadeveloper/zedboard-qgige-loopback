@@ -1,11 +1,11 @@
 zedboard-qgige-loopback
 =======================
 
-Loopback design for the Ethernet FMC on the ZedBoard using AXI Ethernet
+Loopback design for the [Quad Gigabit Ethernet FMC](http://ethernetfmc.com "Ethernet FMC") on the [ZedBoard](http://zedboard.org "ZedBoard") using AXI Ethernet
 
 ### Description
 
-This project is used for testing the Ethernet FMC (ethernetfmc.com).
+This project is used for testing the [Quad Gigabit Ethernet FMC](http://ethernetfmc.com "Ethernet FMC").
 The design contains 4 AXI Ethernet blocks in a loopback configuration
 such that port 0 loops back to port 1, and port 2 loops back to port 3.
 The software application uses lwIP on the ZedBoard Ethernet port.
@@ -24,7 +24,8 @@ back to the PC.
 ### Requirements
 
 * Vivado 2014.2
-* ZedBoard
+* [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC")
+* [ZedBoard](http://zedboard.org "ZedBoard")
 * PC with Gigabit Ethernet port
 
 ### License
@@ -44,4 +45,4 @@ companies around the world. I believe in sharing knowledge and
 I regularly contribute to the open source community.
 
 Jeff Johnson
-http://www.fpgadeveloper.com
+[FPGA Developer](http://www.fpgadeveloper.com "FPGA Developer")
