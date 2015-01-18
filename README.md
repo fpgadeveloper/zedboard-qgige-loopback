@@ -10,6 +10,8 @@ The design contains 4 AXI Ethernet blocks in a loopback configuration
 such that port 0 loops back to port 1, and port 2 loops back to port 3.
 The software application uses lwIP on the [ZedBoard](http://zedboard.org "ZedBoard") Ethernet port.
 
+![Ethernet FMC Loopback](http://ethernetfmc.com/wp-content/uploads/2014/10/qgige_loopback.png "Zynq Quad Gig Ethernet Loopback")
+
 To test the [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC") using this project, you will need a PC with one
 Gigabit Ethernet port. You must connect the PC to port 0 of the [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC").
 You must connect [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC") ports 1 and 2 with an Ethernet cable.
@@ -27,6 +29,7 @@ back to the PC.
 * [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC")
 * [ZedBoard](http://zedboard.org "ZedBoard")
 * PC with Gigabit Ethernet port
+* [Xilinx Soft TEMAC license](http://ethernetfmc.com/getting-a-license-for-the-xilinx-tri-mode-ethernet-mac/ "Xilinx Soft TEMAC license")
 
 ### License
 
