@@ -1,20 +1,34 @@
-/*
- * Copyright (c) 2009-2013 Xilinx, Inc.  All rights reserved.
- *
- * Xilinx, Inc.
- * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
- * COURTESY TO YOU.  BY PROVIDING THIS DESIGN, CODE, OR INFORMATION AS
- * ONE POSSIBLE   IMPLEMENTATION OF THIS FEATURE, APPLICATION OR
- * STANDARD, XILINX IS MAKING NO REPRESENTATION THAT THIS IMPLEMENTATION
- * IS FREE FROM ANY CLAIMS OF INFRINGEMENT, AND YOU ARE RESPONSIBLE
- * FOR OBTAINING ANY RIGHTS YOU MAY REQUIRE FOR YOUR IMPLEMENTATION.
- * XILINX EXPRESSLY DISCLAIMS ANY WARRANTY WHATSOEVER WITH RESPECT TO
- * THE ADEQUACY OF THE IMPLEMENTATION, INCLUDING BUT NOT LIMITED TO
- * ANY WARRANTIES OR REPRESENTATIONS THAT THIS IMPLEMENTATION IS FREE
- * FROM CLAIMS OF INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.
- *
- */
+/******************************************************************************
+*
+* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
 #if __MICROBLAZE__ || __PPC__
 #include "arch/cc.h"
 #include "platform.h"
@@ -29,6 +43,12 @@
 
 #include "lwip/tcp.h"
 
+#if LWIP_DHCP==1
+volatile int dhcp_timoutcntr = 24;
+void dhcp_fine_tmr();
+void dhcp_coarse_tmr();
+#endif
+
 void
 timer_callback()
 {
@@ -36,11 +56,28 @@ timer_callback()
 	 * It is not important that the timing is absoluetly accurate.
 	 */
 	static int odd = 1;
+#if LWIP_DHCP==1
+    static int dhcp_timer = 0;
+#endif
 	tcp_fasttmr();
 
 	odd = !odd;
-	if (odd)
+	if (odd) {
+
+#if LWIP_DHCP==1
+		dhcp_timer++;
+		dhcp_timoutcntr--;
+#endif
 		tcp_slowtmr();
+
+#if LWIP_DHCP==1
+		dhcp_fine_tmr();
+		if (dhcp_timer >= 120) {
+			dhcp_coarse_tmr();
+			dhcp_timer = 0;
+		}
+#endif
+	}
 }
 
 static XIntc intc;
