@@ -25,7 +25,7 @@ back to the PC.
 
 ### Requirements
 
-* Vivado 2014.4
+* Vivado 2015.2
 * [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC")
 * [ZedBoard](http://zedboard.org "ZedBoard")
 * PC with Gigabit Ethernet port
