@@ -25,7 +25,7 @@ back to the PC.
 
 ### Requirements
 
-* Vivado 2015.3
+* Vivado 2015.4
 * [Ethernet FMC](http://ethernetfmc.com "Ethernet FMC")
 * [ZedBoard](http://zedboard.org "ZedBoard")
 * PC with Gigabit Ethernet port
@@ -34,7 +34,7 @@ back to the PC.
 ### Notes on Regenerating lwIP Echo Server
 
 Ignore the following notes if you are importing the SDK application as is, in which case no modifications are necessary.
-This repository contains an SDK application which relies on lwIP sources provided with Vivado 2015.3. If you are porting this
+This repository contains an SDK application which relies on lwIP sources provided with Vivado 2015.4. If you are porting this
 design to another version of Vivado, you can regenerate your own lwIP application from the lwIP template in SDK
 (New->Application Project->lwIP Echo Server). If you do this, the first compile will fail because by default it is configured
 to use AXI Ethernet. This design contains AXI Ethernet IPs but they are not configured with DMAs which is why the error occurs.
@@ -70,7 +70,13 @@ with this one line:
 #define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR
 ```
 
-Open the file `main.c`. Find the line `start_application();` and add the following code just below it:
+Open the file `main.c`. Add this include:
+
+```c
+#include "ethfmc_axie.h"
+```
+
+Then find the line `start_application();` and add the following code just below it:
 
 ```c
 	xil_printf("Ethernet Port 0:\n\r");
