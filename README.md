@@ -3,6 +3,10 @@ zedboard-qgige-loopback
 
 Loopback design for the [Quad Gigabit Ethernet FMC](http://ethernetfmc.com "Ethernet FMC") on the [ZedBoard](http://zedboard.org "ZedBoard") using AXI Ethernet
 
+### No longer maintained
+
+Due to lack of interest, this example design is no longer maintained.
+
 ### Description
 
 This project is used for testing the [Quad Gigabit Ethernet FMC](http://ethernetfmc.com "Ethernet FMC").
